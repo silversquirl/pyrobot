@@ -20,7 +20,7 @@ def postImage(img):
 # Get the score of an image, given its tweet ID
 def getImageScore(imgId):
     s = api.GetStatus(imgId)
-    cr = s.created_at_in_seconds()
+    cr = s.created_at_in_seconds
     score = s.favorite_count + s.retweet_count
     timeUp = math.ceil((time.time() - cr) / 386400) # Days up
     return score/timeUp
@@ -31,7 +31,7 @@ def getMostPopularTweets():
 
     for x in os.listdir(FLAME_DIR):
         if x.endswith(".flam3"):
-            tids.append(x.rstrip(".flam3"))
+            tids.append(x[:-len(".flam3")])
 
     a, b = sorted(tids, key=getImageScore, reverse=True)[:2]
     
@@ -47,7 +47,7 @@ def getTweetsMutate():
 
     for x in os.listdir(FLAME_DIR):
         if x.endswith(".flam3"):
-            tids.append(x.rstrip(".flam3"))
+            tids.append(x[:-len(".flam3")])
     
     tids = sorted(tids, key=getImageScore, reverse=True)
     
@@ -68,8 +68,9 @@ if __name__=='__main__':
     ret = {
         "post": postImage,
         "popular": getMostPopularTweets,
+        "mutate": getTweetsMutate,
     }[sys.argv[1]](*sys.argv[2:])
     if isinstance(ret, tuple):
-        for x in ret: print(x)
+        for x in ret: print(x, end="\0")
     else:
         print(ret)
