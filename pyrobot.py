@@ -19,7 +19,7 @@ def postImage(img):
 
 # Get the score of an image, given its tweet ID
 def getImageScore(imgId):
-    s = api.GetStatus(imdId)
+    s = api.GetStatus(imgId)
     cr = s.created_at_in_seconds()
     score = s.favorite_count + s.retweet_count
     timeUp = math.ceil((time.time() - cr) / 386400) # Days up
