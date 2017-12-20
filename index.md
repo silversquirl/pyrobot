@@ -1,5 +1,3 @@
-# PyroBot
-
 Pyrobot is a small Twitter bot designed by [@mlugg][mlugg] and [@vktec][vktec].
 It uses the [FLAM3 algorithm][flam3] by Scott Draves to generate abstract
 images. The genomes of these images are then bred together based on popularity
