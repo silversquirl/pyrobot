@@ -22,7 +22,7 @@ def getImageScore(imgId):
     s = api.GetStatus(imdId)
     cr = s.created_at_in_seconds()
     score = s.favorite_count + s.retweet_count
-    timeUp = (time.time() - cr) / 3600 # Hours up
+    timeUp = math.ceil((time.time() - cr) / 386400) # Days up
     return score/timeUp
 
 # Gets the filenames of the two most popular tweets
