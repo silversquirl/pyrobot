@@ -49,6 +49,8 @@ def getTweetsMutate():
         if x.endswith(".flam3"):
             tids.append(x.rstrip(".flam3"))
     
+    tids = sorted(tids, key=getImageScore, reverse=True)
+    
     index = math.ceil(len(tids) / 2)
     a = tids[index]
     
