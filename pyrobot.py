@@ -35,13 +35,13 @@ def getMostPopularTweets():
 
     tids = sorted(tids, key=getImageScore, reverse=True)
 
-	index = math.ceil(len(tids) / 2)
-	a = tids[index]
-	
-	upper = math.ceil(len(tids) / 8)
-	index = 0 - random.randint(1, upper)
-	b = tids[index]
-	
+    index = math.ceil(len(tids) / 2)
+    a = tids[index]
+
+    upper = math.ceil(len(tids) / 8)
+    index = 0 - random.randint(1, upper)
+    b = tids[index]
+
     apath = os.path.join(FLAME_DIR, a + ".flam3")
     bpath = os.path.join(FLAME_DIR, b + ".flam3")
 
@@ -50,19 +50,18 @@ def getMostPopularTweets():
 
 # Gets two Tweets to mutate and breed. 
 def getTweetsMutate():
-	tids = []
+    tids = []
 
     for x in os.listdir(FLAME_DIR):
         if x.endswith(".flam3"):
             tids.append(x.rstrip(".flam3"))
-	
-	
 
 if __name__=='__main__':
     import sys
     ret = {
         "post": postImage,
         "popular": getMostPopularTweets,
+        "mutate": getTweetsMutate,
     }[sys.argv[1]](*sys.argv[2:])
     if isinstance(ret, tuple):
         for x in ret: print(x)
