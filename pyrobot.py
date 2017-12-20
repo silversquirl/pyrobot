@@ -17,8 +17,8 @@ def postImage(img):
 
 # Get the score of an image, given its tweet ID
 def getImageScore(imgId):
-    s = api.GetStatus(imdId)
-    cr = s.created_at_in_seconds()
+    s = api.GetStatus(imgId)
+    cr = s.created_at_in_seconds
     score = s.favorite_count + s.retweet_count
     timeUp = (time.time() - cr) / 3600 # Hours up
     return score/timeUp
@@ -29,7 +29,7 @@ def getMostPopularTweets():
 
     for x in os.listdir(FLAME_DIR):
         if x.endswith(".flam3"):
-            tids.append(x.rstrip(".flam3"))
+            tids.append(x[:-len(".flam3")])
 
     a, b = sorted(tids, key=getImageScore, reverse=True)[:2]
 
