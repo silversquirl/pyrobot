@@ -37,47 +37,13 @@ def getTweets():
     
     # Organised. Pick two
 
-    ranvals = []
-    
-    ingroup = math.floor(len(tids) / 5)
+    index = math.round(math.log2(random.randint(10 ** len(tids))))
 
-    crand = 1
-    
-    rsum = 0
+    a = tids[index]
 
+    index = math.round(math.log2(random.randint(10 ** len(tids))))
 
-    # For every element, set the cumulative sum
-    for i in range(len(tids)):
-        val = tids[i]
-        if i % ingroup == ingroup - 1:
-            crand = crand * 2
-        rsum = rsum + crand
-        ranvals.add(rsum)
-
-    
-    rand = random.randint(1, ranvals[-1] + 1)
-
-    pos = -1 # If none is found it's the last element, aka the most popular
-
-    for i in range(len(ranvals)):
-        if ranvals[i] > rand:
-            pos = i-1
-            break
-
-    a = tids[pos]
-
-
-    # Same thing again for b
-    rand = random.randint(1, ranvals[-1] + 1)
-
-    pos = -1
-
-    for i in range(len(ranvals)):
-        if ranvals[i] > rand:
-            pos = i-1
-            break
-
-    b = tids[pos]
+    b = tids[index]
 
     apath = os.path.join(FLAME_DIR, a + ".flam3")
     bpath = os.path.join(FLAME_DIR, b + ".flam3")
