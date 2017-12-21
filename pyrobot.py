@@ -25,39 +25,60 @@ def getImageScore(imgId):
     timeUp = math.ceil((time.time() - cr) / 386400) # Days up
     return score/timeUp
 
-# Gets the filenames of the two most popular tweets
-def getMostPopularTweets():
+# Gets the filenames of two tweets to use
+def getTweets():
     tids = []
 
     for x in os.listdir(FLAME_DIR):
         if x.endswith(".flam3"):
             tids.append(x[:-len(".flam3")])
 
-    a, b = sorted(tids, key=getImageScore, reverse=True)[:2]
+    tids = sorted(tids, key=getImageScore)
     
-    apath = os.path.join(FLAME_DIR, a + ".flam3")
-    bpath = os.path.join(FLAME_DIR, b + ".flam3")
+    # Organised. Pick two
 
-    return apath, bpath
+    ranvals = []
+    
+    ingroup = math.floor(len(tids) / 5)
+
+    crand = 1
+    
+    rsum = 0
 
 
-# Gets two Tweets to mutate and breed. 
-def getTweetsMutate():
-    tids = []
+    # For every element, set the cumulative sum
+    for i in range(len(tids)):
+        val = tids[i]
+        if i % ingroup == ingroup - 1:
+            crand = crand * 2
+        rsum = rsum + crand
+        ranvals.add(rsum)
 
-    for x in os.listdir(FLAME_DIR):
-        if x.endswith(".flam3"):
-            tids.append(x[:-len(".flam3")])
     
-    tids = sorted(tids, key=getImageScore, reverse=True)
-    
-    index = math.ceil(len(tids) / 2)
-    a = tids[index]
-    
-    upper = math.ceil(len(tids) / 8)
-    index = 0 - random.randint(1, upper)
-    b = tids[index]
-    
+    rand = random.randint(1, ranvals[-1] + 1)
+
+    pos = -1 # If none is found it's the last element, aka the most popular
+
+    for i in range(len(ranvals)):
+        if ranvals[i] > rand:
+            pos = i-1
+            break
+
+    a = tids[pos]
+
+
+    # Same thing again for b
+    rand = random.randint(1, ranvals[-1] + 1)
+
+    pos = -1
+
+    for i in range(len(ranvals)):
+        if ranvals[i] > rand:
+            pos = i-1
+            break
+
+    b = tids[pos]
+
     apath = os.path.join(FLAME_DIR, a + ".flam3")
     bpath = os.path.join(FLAME_DIR, b + ".flam3")
 
