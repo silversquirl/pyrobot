@@ -54,8 +54,7 @@ if __name__=='__main__':
     import sys
     ret = {
         "post": postImage,
-        "popular": getMostPopularTweets,
-        "mutate": getTweetsMutate,
+        "popular": getTweets,
     }[sys.argv[1]](*sys.argv[2:])
     if isinstance(ret, tuple):
         for x in ret: print(x, end="\0")
