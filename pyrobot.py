@@ -37,11 +37,11 @@ def getTweets():
     
     # Organised. Pick two
 
-    index = round(math.log2(random.randint(0, 2 ** len(tids))))
+    index = round(math.log2(random.randint(0, 2 ** len(tids) - 1)))
 
     a = tids[index]
 
-    index = round(math.log2(random.randint(0, 2 ** len(tids))))
+    index = round(math.log2(random.randint(0, 2 ** len(tids) - 1)))
 
     b = tids[index]
 
