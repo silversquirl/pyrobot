@@ -17,7 +17,7 @@ api = twitter.Api(consumer_key=creds.consumer_key,
 def postImage(img, tweetA=None, tweetB=None):
     bodyText = ""
     if tweetA and tweetB:
-        def url(x): return bodyText + api.GetStatus(x).urls[0]
+        def url(x): return bodyText + api.GetStatus(int(x)).urls[0]
         bodyText = "Generated from {} and {}".format(url(tweetA), url(tweetB))
     return api.PostUpdate(bodyText, img).id
 
