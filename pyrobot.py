@@ -14,7 +14,12 @@ api = twitter.Api(consumer_key=creds.consumer_key,
                   access_token_secret=creds.access_token_secret)
 
 # Post an image and return the id
-def postImage(img):
+def postImage(img, tweetA=None, tweetB=None):
+    bodyText = ""
+    if tweetA != None:
+        bodyText = bodyText + api.GetStatus(tweetA).urls[0] + "\n"
+    if tweetB != None:
+        bodyText = bodyText + api.GetStatus(tweetB).urls[0]
     return api.PostUpdate("", img).id
 
 # Get the score of an image, given its tweet ID
