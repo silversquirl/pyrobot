@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 # Loop through flames
 while read -r img; do
     # Extract their parents
