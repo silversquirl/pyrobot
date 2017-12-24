@@ -4,6 +4,7 @@ set -e
 while read -r img; do
     # Extract their parents
     p="${img%.*}"
+    p="${img##*/}"
     a="${p%x*}"
     b="${p#*x}"
     # Post them to Twitter
