@@ -17,13 +17,13 @@ api = twitter.Api(consumer_key=creds.consumer_key,
 def postImage(img, tweetA=None, tweetB=None):
     bodyText = ""
     if tweetA and tweetB:
-        def url(x): return bodyText + api.GetStatus(int(x)).urls[0]
+        def url(x): return api.GetStatus(int(x)).urls[0]
         bodyText = "Generated from {} and {}".format(url(tweetA), url(tweetB))
     return api.PostUpdate(bodyText, img).id
 
 # Get the score of an image, given its tweet ID
 def getImageScore(imgId):
-    s = api.GetStatus(imgId)
+    s = api.GetStatus(int(imgId))
     cr = s.created_at_in_seconds
     score = s.favorite_count + s.retweet_count
     timeUp = math.ceil((time.time() - cr) / 386400) # Days up
