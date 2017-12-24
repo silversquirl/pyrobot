@@ -20,7 +20,7 @@ def postImage(img, tweetA=None, tweetB=None):
         bodyText = bodyText + api.GetStatus(tweetA).urls[0] + "\n"
     if tweetB != None:
         bodyText = bodyText + api.GetStatus(tweetB).urls[0]
-    return api.PostUpdate("", img).id
+    return api.PostUpdate(bodyText, img).id
 
 # Get the score of an image, given its tweet ID
 def getImageScore(imgId):
