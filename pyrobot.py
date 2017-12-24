@@ -16,10 +16,9 @@ api = twitter.Api(consumer_key=creds.consumer_key,
 # Post an image and return the id
 def postImage(img, tweetA=None, tweetB=None):
     bodyText = ""
-    if tweetA != None:
-        bodyText = bodyText + api.GetStatus(tweetA).urls[0] + "\n"
-    if tweetB != None:
-        bodyText = bodyText + api.GetStatus(tweetB).urls[0]
+    if tweetA and tweetB:
+        def url(x): return bodyText + api.GetStatus(x).urls[0]
+        bodyText = "Generated from {} and {}".format(url(tweetA), url(tweetB))
     return api.PostUpdate(bodyText, img).id
 
 # Get the score of an image, given its tweet ID
